@@ -10,14 +10,18 @@ function App() {
 
   useEffect(() => {
     
-    console.log(googleAPIKey);
 })
 
+ const filterVideos= async (searchWord)=> {
+  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchWord}&key=AIzaSyCeijgOGDQ8ntlmkVFcr4ZSh1mCzbSSNAQ&part=snippet`)
+      // return response.data
+      console.log(response.data)
+}
   
     return (
       <div className="App">
         <DisplayVideo />
-        <SearchBar />
+        <SearchBar filteredVideos={filterVideos}/>
       </div>
     );
   }

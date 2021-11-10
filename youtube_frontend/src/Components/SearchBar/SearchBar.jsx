@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import SearchResults from '../SearchResults/SearchResults';
 
-const SearchBar = () => {
-const [searchWord, setSearchWord] = useState('')
+const SearchBar = (props) => {
 
-async function filterVideos() {
-    let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchWord}&key=AIzaSyCeijgOGDQ8ntlmkVFcr4ZSh1mCzbSSNAQ`)
-        // return response.data
-        console.log(response.data)
-  }
+const {handleChange, handleSubmit} = SearchResults(props.filteredVideos);
+
 
     return (  
         <div>
-            <form className="form">
+            <form onSubmit={handleSubmit}>
                 <label>Search</label>
-                <input name="searchWord" type="text" onChange={searchWord}  placeholder='search...'/>
-                <button onClick={() => setSearchWord(searchWord)}>search</button>
+                <input name="searchWord" type="text" onChange={handleChange} placeholder='search...'/>
+                <button type='submit'>search</button>
             </form>
         </div>
     );
