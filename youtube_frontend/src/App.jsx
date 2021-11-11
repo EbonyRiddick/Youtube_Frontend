@@ -20,6 +20,7 @@ function App() {
       console.log(response.data)
       setVideos(response.data.items)
       setVideoId(response.data.items[0].id.videoId)
+      console.log(response.data)
 }
 
 const changeVideo = (videoIdPassedIn) => {
