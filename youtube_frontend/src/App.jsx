@@ -26,7 +26,7 @@ function App() {
 }
 
 const getRelatedVideos = async (videoId) => {
-  let response = await axios.get(` https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=AIzaSyCeijgOGDQ8ntlmkVFcr4ZSh1mCzbSSNAQ`)
+  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=AIzaSyCeijgOGDQ8ntlmkVFcr4ZSh1mCzbSSNAQ`)
       console.log(response.data)
 }
 
@@ -38,7 +38,7 @@ const changeVideo = (videoIdPassedIn) => {
       <div className="App">
         <DisplayVideo videoId={videoId} />
         <SearchBar getVideos={getVideos} />
-        <RecommendedVideos getRelatedVideos ={getRelatedVideos} />
+        {/* <RecommendedVideos getRelatedVideos ={getRelatedVideos} /> */}
       </div>
     );
   }
