@@ -5,11 +5,13 @@ import DisplayVideo from './Components/DisplayVideo/DisplayVideo';
 import Comments from './Components/Comments/Comments';
 import axios from 'axios'
 import SearchBar from './Components/SearchBar/SearchBar';
+import RecommendedVideos from './Components/RecommendedVideos/RecommendedVideos';
 
 function App() {
 
   const [videos, setVideos] = useState([]);
   const [videoId, setVideoId] = useState('zdKGJmdL1E4')
+  const [thumbnail, setThumbnail]= useState('https://i.ytimg.com/vi/FBtvOJ0tmfw/default.jpg')
 
   useEffect(() => {
     
@@ -23,6 +25,11 @@ function App() {
       console.log(response.data)
 }
 
+const getRelatedVideos = async (videoId) => {
+  let response = await axios.get(` https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=AIzaSyCeijgOGDQ8ntlmkVFcr4ZSh1mCzbSSNAQ`)
+      console.log(response.data)
+}
+
 const changeVideo = (videoIdPassedIn) => {
   setVideoId(videoIdPassedIn)
 }
@@ -31,6 +38,7 @@ const changeVideo = (videoIdPassedIn) => {
       <div className="App">
         <DisplayVideo videoId={videoId} />
         <SearchBar getVideos={getVideos} />
+        <RecommendedVideos getRelatedVideos ={getRelatedVideos} />
       </div>
     );
   }
