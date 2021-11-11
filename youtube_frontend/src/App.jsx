@@ -8,20 +8,28 @@ import SearchBar from './Components/SearchBar/SearchBar';
 
 function App() {
 
+  const [videos, setVideos] = useState([]);
+  const [videoId, setVideoId] = useState('zdKGJmdL1E4')
+
   useEffect(() => {
     
 })
 
- const filterVideos= async (searchWord)=> {
+ const getVideos = async (searchWord) => {
   let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchWord}&key=AIzaSyCeijgOGDQ8ntlmkVFcr4ZSh1mCzbSSNAQ&part=snippet`)
-      // return response.data
       console.log(response.data)
+      setVideos(response.data.items)
+      setVideoId(response.data.items[0].id.videoId)
+}
+
+const changeVideo = (videoIdPassedIn) => {
+  setVideoId(videoIdPassedIn)
 }
   
     return (
       <div className="App">
-        <DisplayVideo />
-        <SearchBar filteredVideos={filterVideos}/>
+        <DisplayVideo videoId={videoId} />
+        <SearchBar getVideos={getVideos} />
       </div>
     );
   }

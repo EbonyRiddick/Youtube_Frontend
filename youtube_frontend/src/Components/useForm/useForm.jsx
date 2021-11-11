@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-const SearchResults = (callback) => {
+const useForm = (callback) => {
     const [formValues, setFormValues] = useState({});
 
     const handleChange = (event) => {
         event.persist();
         setFormValues({...formValues, [event.target.name]: event.target.value })
+        //setFormValues({...formValues, searchWord: dog })
     }
 
     const handleSubmit = (event) => {
@@ -17,4 +18,4 @@ const SearchResults = (callback) => {
     return {formValues, handleChange, handleSubmit}
 }
 
-export default SearchResults
+export default useForm
