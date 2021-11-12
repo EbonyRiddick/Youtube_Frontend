@@ -17,7 +17,7 @@ const RecommendedVideos = (props) => {
                     return (
                         <div>
                             <img src={video.snippet.thumbnails.default.url} />
-                            <h1 onClick>{video.snippet.title}</h1>
+                            <h1 >{video.snippet.title}</h1>
                         </div>
                         
                     )

@@ -21,7 +21,7 @@ function App() {
 },[videoId])
 
  const getVideos = async (searchWord) => {
-  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchWord}&key=AIzaSyD-9BfLvsoUjGdn2Hs4Ry7rQ_4Caa1cHsw&part=snippet`)
+  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${searchWord}&key=${googleAPIKey}&part=snippet`)
       console.log(response.data)
       setVideoId(response.data.items[0].id.videoId)
       setVideos(response.data.items)
@@ -32,7 +32,7 @@ function App() {
 }
 
 const getRelatedVideos = async (videoId) => {
-  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=AIzaSyD-9BfLvsoUjGdn2Hs4Ry7rQ_4Caa1cHsw&part=snippet`)
+  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=${googleAPIKey}&part=snippet`)
       console.log(response.data)
       setRelatedVideos(response.data.items)
 }
