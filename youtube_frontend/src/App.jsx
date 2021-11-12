@@ -13,6 +13,8 @@ function App() {
   const [videoId, setVideoId] = useState('zdKGJmdL1E4')
   const [thumbnail, setThumbnail]= useState('https://i.ytimg.com/vi/FBtvOJ0tmfw/default.jpg')
   const [relatedVideos, setRelatedVideos] = useState([])
+  const [descriptions, setDescription] = useState('')
+  const [title, setTitle] = useState('')
 
   useEffect(() => {
     
@@ -23,6 +25,8 @@ function App() {
       console.log(response.data)
       setVideoId(response.data.items[0].id.videoId)
       setVideos(response.data.items)
+      setDescription(response.data.items[0].snippet.description)
+      setTitle(response.data.items[0].snippet.title)
       getRelatedVideos(response.data.items[0].id.videoId)
       console.log(response.data)
 }
@@ -32,16 +36,12 @@ const getRelatedVideos = async (videoId) => {
       console.log(response.data)
       setRelatedVideos(response.data.items)
 }
-
-const changeVideo = (videoIdPassedIn) => {
-  setVideoId(videoIdPassedIn)
-}
   
     return (
       <div className="App">
-        <DisplayVideo videoId={videoId} />
+        <DisplayVideo videoId={videoId} descriptions={descriptions} title={title}/>
         <SearchBar getVideos={getVideos} />
-        <RecommendedVideos relatedVideos={relatedVideos}/>
+        <RecommendedVideos relatedVideos={relatedVideos} clickMe={setVideoId}/>
       </div>
     );
   }
