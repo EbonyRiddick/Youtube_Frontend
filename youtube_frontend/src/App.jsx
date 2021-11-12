@@ -5,13 +5,13 @@ import DisplayVideo from './Components/DisplayVideo/DisplayVideo';
 import Comments from './Components/Comments/Comments';
 import axios from 'axios'
 import SearchBar from './Components/SearchBar/SearchBar';
-import RecommendedVideos from './Components/RecommendedVideos/RecommendedVideos';
+import RecommendedVideos from './Components/RelatedVideos/RelatedVideos';
+import RelatedVideos from './Components/RelatedVideos/RelatedVideos';
 
 function App() {
 
   const [videos, setVideos] = useState([]);
   const [videoId, setVideoId] = useState('zdKGJmdL1E4')
-  const [thumbnail, setThumbnail]= useState('https://i.ytimg.com/vi/FBtvOJ0tmfw/default.jpg')
   const [relatedVideos, setRelatedVideos] = useState([])
 
   useEffect(() => {

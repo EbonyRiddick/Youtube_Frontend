@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/iframe-has-title */
 import React, {Component, useState} from 'react';
-import RecommendedVideos from '../RecommendedVideos/RecommendedVideos';
+import RelatedVideos from '../RelatedVideos/RelatedVideos';
+
 
 const DisplayVideo = (props) => {
  
@@ -15,4 +16,4 @@ const DisplayVideo = (props) => {
     )
 }
 
-export default DisplayVideo
+export default DisplayVideo;
