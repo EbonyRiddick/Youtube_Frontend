@@ -41,10 +41,7 @@ const changeVideo = (videoIdPassedIn) => {
       <div className="App">
         <DisplayVideo videoId={videoId} />
         <SearchBar getVideos={getVideos} />
-        {relatedVideos.length >0 ? 
         <RecommendedVideos relatedVideos={relatedVideos}/>
-        :
-        null}
       </div>
     );
   }
