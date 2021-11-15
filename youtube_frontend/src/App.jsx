@@ -15,6 +15,7 @@ function App() {
   const [relatedVideos, setRelatedVideos] = useState([])
   const [descriptions, setDescription] = useState('')
   const [title, setTitle] = useState('')
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     
@@ -28,6 +29,7 @@ function App() {
       setDescription(response.data.items[0].snippet.description)
       setTitle(response.data.items[0].snippet.title)
       getRelatedVideos(response.data.items[0].id.videoId)
+      getComments(response.data.items[0].id.videoId)
       console.log(response.data)
 }
 
@@ -36,12 +38,36 @@ const getRelatedVideos = async (videoId) => {
       console.log(response.data)
       setRelatedVideos(response.data.items)
 }
+
+const getNewVideo = async (videoId) => {
+  debugger
+  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=${googleAPIKey}&part=snippet`)
+  if (response.data.items.indexOf(videoId)) {
+    setVideoId(response.data)
+    setVideos(response.data.items)
+    setDescription(response.data.items[0].snippet.description)
+    setTitle(response.data.items[0].snippet.title)
+  }
+}
+
+const getComments = async (videoId) => {
+  let response = await axios.get(`http://127.0.0.1:8000/comments/${videoId}`)
+      console.log(response.data)
+      setComments(response.data.comments)
+}
+
+const postComments = async (videoId) => {
+  let response = await axios.post(`http://127.0.0.1:8000/comments/${videoId}`)
+      setComments(...comments, response.data)
+      // need whole comment object NOT just video ID.
+}
   
     return (
       <div className="App">
-        <DisplayVideo videoId={videoId} descriptions={descriptions} title={title}/>
+        <DisplayVideo videoId={videoId} descriptions={descriptions} title={title} comments={comments} getComments={getComments} />
         <SearchBar getVideos={getVideos} />
-        <RecommendedVideos relatedVideos={relatedVideos} clickMe={setVideoId}/>
+        <RecommendedVideos relatedVideos={relatedVideos} clickMe={getNewVideo}/>
+        <Comments comments={comments} postComments={postComments} getComments={getComments}/>
       </div>
     );
   }

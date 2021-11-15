@@ -18,7 +18,6 @@ const DisplayVideo = (props) => {
         setTitle(response.data.items[0].snippet.title)
         setDescription(response.data.items[0].snippet.description)
     }
-    
 
     return (
         <div>
@@ -29,6 +28,7 @@ const DisplayVideo = (props) => {
             <div>
                 <h1>{title}</h1>
                 <h1>{description}</h1>
+                <h1>{props.comments}</h1>
             </div>
         </React.Fragment>
         </div>

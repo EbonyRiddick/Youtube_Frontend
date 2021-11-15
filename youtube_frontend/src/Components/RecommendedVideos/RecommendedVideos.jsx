@@ -1,6 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+
 
 
 const RecommendedVideos = (props) => {
@@ -15,7 +14,7 @@ const RecommendedVideos = (props) => {
                  }
                  else{
                     return (
-                        <div>
+                        <div onClick={() => props.clickMe(video.id.videoId)}>
                             <img src={video.snippet.thumbnails.default.url} />
                             <h1 >{video.snippet.title}</h1>
                         </div>
