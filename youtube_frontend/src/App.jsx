@@ -6,6 +6,7 @@ import Comments from './Components/Comments/Comments';
 import axios from 'axios'
 import SearchBar from './Components/SearchBar/SearchBar';
 import RecommendedVideos from './Components/RecommendedVideos/RecommendedVideos';
+import DisplayComments from './Components/DisplayComments/DisplayComments';
 
 function App() {
 
@@ -29,7 +30,6 @@ function App() {
       setDescription(response.data.items[0].snippet.description)
       setTitle(response.data.items[0].snippet.title)
       getRelatedVideos(response.data.items[0].id.videoId)
-      getComments(response.data.items[0].id.videoId)
       console.log(response.data)
 }
 
@@ -40,21 +40,9 @@ const getRelatedVideos = async (videoId) => {
 }
 
 const getNewVideo = async (videoId) => {
-  debugger
-  let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=${googleAPIKey}&part=snippet`)
-  if (response.data.items.indexOf(videoId)) {
-    setVideoId(response.data)
-    setVideos(response.data.items)
-    setDescription(response.data.items[0].snippet.description)
-    setTitle(response.data.items[0].snippet.title)
-  }
+  setVideoId(videoId)
 }
 
-const getComments = async (videoId) => {
-  let response = await axios.get(`http://127.0.0.1:8000/comments/${videoId}`)
-      console.log(response.data)
-      setComments(response.data.comments)
-}
 
 const postComments = async (videoId) => {
   let response = await axios.post(`http://127.0.0.1:8000/comments/${videoId}`)
@@ -64,10 +52,11 @@ const postComments = async (videoId) => {
   
     return (
       <div className="App">
-        <DisplayVideo videoId={videoId} descriptions={descriptions} title={title} comments={comments} getComments={getComments} />
+        <DisplayVideo videoId={videoId} descriptions={descriptions} title={title} comments={comments} />
         <SearchBar getVideos={getVideos} />
         <RecommendedVideos relatedVideos={relatedVideos} clickMe={getNewVideo}/>
-        <Comments comments={comments} postComments={postComments} getComments={getComments}/>
+        <Comments postComments={postComments} />
+        <DisplayComments comments={comments}/>
       </div>
     );
   }

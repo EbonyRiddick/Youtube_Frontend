@@ -7,9 +7,11 @@ import axios from 'axios';
 const DisplayVideo = (props) => {
     const [title, setTitle] = useState()
     const [description, setDescription] = useState()
+    const [comments, setComments] = useState([])
 
     useEffect(()=>{
         getTitleDescription()
+        getComments()
     },[props.videoId])
 
     async function getTitleDescription(){
@@ -17,6 +19,12 @@ const DisplayVideo = (props) => {
         console.log(response.data)
         setTitle(response.data.items[0].snippet.title)
         setDescription(response.data.items[0].snippet.description)
+    }
+
+    const getComments = async () => {
+        let response = await axios.get(`http://127.0.0.1:8000/comments/`)
+            setComments(response.data)
+            setComments(response.data.comments)
     }
 
     return (
@@ -28,7 +36,15 @@ const DisplayVideo = (props) => {
             <div>
                 <h1>{title}</h1>
                 <h1>{description}</h1>
-                <h1>{props.comments}</h1>
+                {props.comments.map(() => function(comments){
+                    if (props.comments.videoId == props.videoId){
+                        return (
+                            <div>
+                                <h1>{comments.comment}</h1>
+                            </div>
+                        )
+                    }
+                })}
             </div>
         </React.Fragment>
         </div>
