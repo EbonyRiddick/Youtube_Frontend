@@ -19,9 +19,10 @@ const DisplayVideo = (props) => {
         console.log(response.data)
         setTitle(response.data.items[0].snippet.title)
         setDescription(response.data.items[0].snippet.description)
+        
     }
 
-    const getComments = async () => {
+    async function getComments() {
         let response = await axios.get(`http://127.0.0.1:8000/comments/`)
             setComments(response.data)
             setComments(response.data.comments)
@@ -37,7 +38,7 @@ const DisplayVideo = (props) => {
                 <h1>{title}</h1>
                 <h1>{description}</h1>
                 {props.comments.map(() => function(comments){
-                    if (props.comments.videoId == props.videoId){
+                    if (props.comments.videoId === props.videoId){
                         return (
                             <div>
                                 <h1>{comments.comment}</h1>
